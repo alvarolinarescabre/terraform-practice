@@ -8,6 +8,11 @@ output "ec2_public_dns" {
   value       = aws_instance.this.public_dns
 }
 
+output "ec2_tags" {
+  description = "Get Instance Tags"
+  value       = aws_instance.this.tags_all
+}
+
 output "ec2_instance_id" {
   description = "Get Instance ID"
   value       = data.aws_instance.this.instance_id

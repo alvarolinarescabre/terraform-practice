@@ -65,7 +65,7 @@ variable "ebs_volume_type" {
 variable "ebs_volume_size" {
   description = "EBS Volume Size"
   type        = number
-  default     = 50
+  default     = null
 }
 
 variable "ebs_volume_encrypted" {

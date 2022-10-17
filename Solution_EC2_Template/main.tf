@@ -1,6 +1,6 @@
 resource "tls_private_key" "cice-key" {
   algorithm = "RSA"
-  rsa_bits  = 4096
+  rsa_bits  = 1024
 }
 
 resource "local_file" "cice_pem" {

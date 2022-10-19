@@ -21,13 +21,13 @@ resource "aws_instance" "cice_instance" {
   key_name               = aws_key_pair.generated_key.key_name
 
   user_data = <<-EOF
-                #!/bin/bash
-                yum update
-                yum install -y httpd
-                service enable httpd
-                service start httpd
-                echo "<h1> Hello from Instance: $(hostname -f)</h1>" > /var/www/html/index.html
-              EOF
+              #!/bin/bash
+              yum update
+              yum install -y httpd
+              systemctl enable httpd
+              systemctl start httpd
+              echo "<h1> Hello from Instance: $(hostname -f)</h1>" > /var/www/html/index.html
+            EOF
   tags = {
     Name = "CICE-Terraform"
   }

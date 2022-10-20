@@ -6,7 +6,7 @@ module "cice_key_pairs" {
   source = "../modules/aws/key_pairs"
 
   key_name = "cice-key"
-  filename = "./cice-key.pem"
+  filename = "${file("./cice-key.pem")}"
 }
 
 module "cice_instance" {

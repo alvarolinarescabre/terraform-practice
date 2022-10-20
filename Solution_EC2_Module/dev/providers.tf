@@ -14,12 +14,12 @@ terraform {
 
 provider "aws" {
   region = "eu-west-1"
-  alias  = "europe"
+  
   default_tags {
     tags = {
       Enviroment = "Develop"
       Owner      = "Chamo"
-      Project    = "CICE Máster"
+      Project    = "CICE Máster MMC"
     }
   }
 }

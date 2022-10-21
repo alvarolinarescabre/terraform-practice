@@ -27,3 +27,8 @@ output "last_amazon_linux_ami_name" {
   description = "Get Last Amazon Linux AMI Name"
   value       = data.aws_ami.amazon_linux.name
 }
+
+output "is_second_volume_attach" {
+  description = "Is a Second Volume Attach?"
+  value       = var.attach_second_disk
+}

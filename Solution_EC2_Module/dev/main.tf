@@ -37,7 +37,7 @@ module "cice_sg" {
       "from_port" : 22
       "to_port" : 22
       "protocol" : "tcp"
-      "cidr_blocks" : ["0.0.0.0/0"]
+      "cidr_blocks" : [my_ip]
     },
     http = {
       "type" : "ingress"

@@ -1,5 +1,5 @@
 resource "random_id" "id" {
-	  byte_length = 1
+  byte_length = 1
 }
 
 module "key_pairs" {

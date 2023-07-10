@@ -3,10 +3,10 @@ resource "aws_db_instance" "default" {
   engine               = "mysql"
   engine_version       = "5.7"
   instance_class       = "db.t3.micro"
-  identifier           = "cice-db"
-  name                 = "cice_demo"
+  identifier           = "my-db"
+  name                 = "bbdd_demo"
   username             = "root"
-  password             = "cice2021"
+  password             = "Abc123***"
   parameter_group_name = "default.mysql5.7"
   skip_final_snapshot  = true
   apply_immediately    = true

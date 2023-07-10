@@ -20,7 +20,7 @@ output "ec2_instance_id" {
 
 output "ec2_instance_ami" {
   description = "Get Instance AMI"
-  value       = data.aws_instance.this.ami
+  value       = aws_instance.this.ami
 }
 
 output "last_amazon_linux_ami_name" {

@@ -2,21 +2,21 @@ resource "random_id" "id" {
 	  byte_length = 1
 }
 
-module "cice_key_pairs" {
+module "key_pairs" {
   source = "../modules/aws/key_pairs"
 
-  key_name = "cice-key"
-  filename = "${file("./cice-key.pem")}"
+  key_name = "my-key"
+  filename = "${file("./my-key.pem")}"
 }
 
-module "cice_instance" {
+module "instance" {
   source = "../modules/aws/ec2"
 
   availability_zone      = "eu-west-1a"
   user_data              = "./user-data.txt"
-  vpc_security_group_ids = module.cice_sg.id
-  key_name               = module.cice_key_pairs.key_name
-  tags                   = { "Name" : "CICE-Demo-${terraform.workspace}-${random_id.id.dec}", "Env" : terraform.workspace }
+  vpc_security_group_ids = module.sg.id
+  key_name               = module.key_pairs.key_name
+  tags                   = { "Name" : "Demo-${terraform.workspace}-${random_id.id.dec}", "Env" : terraform.workspace }
 
   attach_second_disk     = lookup(local.env, terraform.workspace, " ") == coalesce(terraform.workspace) ? true : false
   ebs_volume_type        = "gp3"
@@ -24,11 +24,11 @@ module "cice_instance" {
   ebs_device_name        = "/dev/sdb"
 }
 
-module "cice_sg" {
+module "sg" {
   source = "../modules/aws/security_group"
 
-  name        = "CICE Instance Security Group - ${terraform.workspace}"
-  description = "CICE Instance Security Group - ${terraform.workspace}"
+  name        = "Instance Security Group - ${terraform.workspace}"
+  description = "Instance Security Group - ${terraform.workspace}"
   tags        = { "Name" : "CICE-Demo", "Env" : terraform.workspace }
 
   rules = {

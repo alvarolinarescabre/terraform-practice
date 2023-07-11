@@ -37,7 +37,7 @@ module "sg" {
       "from_port" : 22
       "to_port" : 22
       "protocol" : "tcp"
-      "cidr_blocks" : [my_ip]
+      "cidr_blocks" : [locals.my_ip]
     },
     http = {
       "type" : "ingress"

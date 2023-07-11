@@ -5,17 +5,17 @@ resource "random_id" "id" {
 module "key_pairs" {
   source = "../modules/aws/key_pairs"
 
-  key_name = "my-key"
-  filename = "${file("./my-key.pem")}"
+  key_name = "webserver"
+  filename = "./webserver.pem"
 }
 
-module "instance" {
+module "webserver" {
   source = "../modules/aws/ec2"
 
-  availability_zone      = "eu-west-1a"
   user_data              = "./user-data.txt"
-  vpc_security_group_ids = module.sg.id
+  vpc_security_group_ids = module.sg.security_groups_id
   key_name               = module.key_pairs.key_name
+
   tags                   = { "Name" : "Demo-${terraform.workspace}-${random_id.id.dec}", "Env" : terraform.workspace }
 
   attach_second_disk     = lookup(local.env, terraform.workspace, " ") == coalesce(terraform.workspace) ? true : false
@@ -25,11 +25,10 @@ module "instance" {
 }
 
 module "sg" {
-  source = "../modules/aws/security_group"
+  source = "../modules/aws/security_groups"
 
-  name        = "Instance Security Group - ${terraform.workspace}"
-  description = "Instance Security Group - ${terraform.workspace}"
-  tags        = { "Name" : "CICE-Demo", "Env" : terraform.workspace }
+  name        = "Webserver_SG"
+  description = "Webserver Security Groups"
 
   rules = {
     ssh = {
@@ -37,7 +36,7 @@ module "sg" {
       "from_port" : 22
       "to_port" : 22
       "protocol" : "tcp"
-      "cidr_blocks" : [locals.my_ip]
+      "cidr_blocks" : [local.my_ip]
     },
     http = {
       "type" : "ingress"
@@ -45,7 +44,7 @@ module "sg" {
       "to_port" : 80
       "protocol" : "tcp"
       "cidr_blocks" : ["0.0.0.0/0"]
-    }
+    },
     egress = {
       "type" : "egress"
       "from_port" : 0

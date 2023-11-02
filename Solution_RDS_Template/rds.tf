@@ -4,7 +4,7 @@ resource "aws_db_instance" "default" {
   engine_version       = "5.7"
   instance_class       = "db.t3.micro"
   identifier           = "my-db"
-  name                 = "bbdd_demo"
+  db_name              = "bbdd_demo"
   username             = "root"
   password             = "Abc123***"
   parameter_group_name = "default.mysql5.7"
